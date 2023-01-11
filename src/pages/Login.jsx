@@ -45,8 +45,10 @@ class Login extends Component {
     const { email, name } = this.state;
 
     dispatch(
-      addEmail(email),
       addName(name),
+    );
+    dispatch(
+      addEmail(email),
     );
     // history.push('/carteira');??
   };
