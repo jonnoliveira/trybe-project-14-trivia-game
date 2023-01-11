@@ -48,7 +48,7 @@ class Login extends Component {
       addEmail(email),
       addName(name),
     );
-    // history.push('/carteira');
+    // history.push('/carteira');??
   };
 
   render() {
