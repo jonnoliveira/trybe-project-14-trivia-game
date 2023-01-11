@@ -10,6 +10,11 @@ class Login extends Component {
     isDisabled: true,
   };
 
+  onClickPlay = async () => {
+    const data = await (await fetch('https://opentdb.com/api_token.php?command=request')).json();
+    localStorage.setItem('token', data.token);
+  };
+
   onChangeHandler = ({ target }) => {
     const { name } = target;
     const { value } = target;
@@ -41,14 +46,17 @@ class Login extends Component {
   };
 
   toGlobalState = () => {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     const { email, name } = this.state;
+
+    this.onClickPlay();
 
     dispatch(
       addEmail(email),
       addName(name),
     );
-    // history.push('/carteira');??
+
+    history.push('/game');
   };
 
   render() {
@@ -97,9 +105,9 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // history: PropTypes.shape({
-  //   push: PropTypes.func,
-  // }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect()(Login);
