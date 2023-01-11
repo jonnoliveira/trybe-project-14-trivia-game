@@ -53,8 +53,6 @@ class Login extends Component {
 
     dispatch(
       addName(name),
-    );
-    dispatch(
       addEmail(email),
     );
     history.push('/game');
