@@ -52,10 +52,9 @@ class Login extends Component {
     this.onClickPlay();
 
     dispatch(
-      addEmail(email),
       addName(name),
+      addEmail(email),
     );
-
     history.push('/game');
   };
 
