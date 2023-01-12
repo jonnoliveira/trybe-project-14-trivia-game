@@ -37,7 +37,8 @@ describe('Login page tests',() => {
             userEvent.type(nameInput, 'João');
             userEvent.type(emailInput, 'joao@dominio.com');
             userEvent.click(button);
-        });        const { loginReducer: { name, email } } = store.getState();
+        });
+        const { loginReducer: { name, email } } = store.getState();
         expect(name).toBe('João');
         expect(email).toBe('joao@dominio.com');
     });
