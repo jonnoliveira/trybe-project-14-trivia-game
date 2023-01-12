@@ -17,6 +17,7 @@ export default class Game extends Component {
     }],
     mixAnswers: [],
     curr: 0,
+    answered: false,
     // show: false,
   };
 
@@ -64,8 +65,12 @@ export default class Game extends Component {
     });
   };
 
+  handleClick = () => {
+    this.setState({ answered: true });
+  };
+
   render() {
-    const { questions, mixAnswers, curr } = this.state;
+    const { questions, mixAnswers, curr, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
     return (
       <div>
@@ -87,11 +92,12 @@ export default class Game extends Component {
                 className={ response === correct
                   ? 'correctAnswer'
                   : 'wrongAnswer' }
-                onClick={ this.toggleStyle }
+                onClick={ this.toggleStyle && this.handleClick }
               >
                 { response }
               </button>
             )) }
+            {answered && (<button data-testid="btn-next" type="button">Next</button>)}
           </div>
         </div>
       </div>
