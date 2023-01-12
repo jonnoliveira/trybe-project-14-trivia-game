@@ -21,6 +21,7 @@ class Header extends Component {
   render() {
     const { name } = this.props;
     const { url, score } = this.state;
+
     return (
       <div>
         <img
