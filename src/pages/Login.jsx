@@ -46,12 +46,15 @@ class Login extends Component {
     }
   };
 
-  toGlobalState = () => {
+  toGlobalState = async () => {
     const { dispatch, history } = this.props;
     const { email, name } = this.state;
-    this.onClickPlay();
+
+    await this.onClickPlay();
+
     dispatch(addName(name));
     dispatch(addEmail(email));
+
     history.push('/game');
   };
 
