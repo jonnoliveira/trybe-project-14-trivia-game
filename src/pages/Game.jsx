@@ -53,6 +53,17 @@ export default class Game extends Component {
     });
   };
 
+  toggleStyle = () => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+      if (button.className === 'correctAnswer') {
+        button.style.border = '3px solid rgb(6, 240, 15)';
+      } else {
+        button.style.border = '3px solid red';
+      }
+    });
+  };
+
   render() {
     const { questions, mixAnswers, curr } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
@@ -73,6 +84,10 @@ export default class Game extends Component {
                 key={ index }
                 data-testid={ response === correct
                   ? 'correct-answer' : `wrong-answer-${index}` }
+                className={ response === correct
+                  ? 'correctAnswer'
+                  : 'wrongAnswer' }
+                onClick={ this.toggleStyle }
               >
                 { response }
               </button>
