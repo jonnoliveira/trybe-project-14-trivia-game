@@ -60,13 +60,14 @@ export default class Game extends Component {
       if (button.className === 'correctAnswer') {
         button.style.border = '3px solid rgb(6, 240, 15)';
       } else {
-        button.style.border = '3px solid red';
+        button.style.border = '3px solid rgb(255, 0, 0)';
       }
     });
   };
 
   handleClick = () => {
     this.setState({ answered: true });
+    this.toggleStyle();
   };
 
   render() {
@@ -92,7 +93,7 @@ export default class Game extends Component {
                 className={ response === correct
                   ? 'correctAnswer'
                   : 'wrongAnswer' }
-                onClick={ this.toggleStyle && this.handleClick }
+                onClick={ this.handleClick }
               >
                 { response }
               </button>
