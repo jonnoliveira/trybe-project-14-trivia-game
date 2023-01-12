@@ -49,13 +49,9 @@ class Login extends Component {
   toGlobalState = () => {
     const { dispatch, history } = this.props;
     const { email, name } = this.state;
-
     this.onClickPlay();
-
-    dispatch(
-      addName(name),
-      addEmail(email),
-    );
+    dispatch(addName(name));
+    dispatch(addEmail(email));
     history.push('/game');
   };
 
