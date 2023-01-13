@@ -21,7 +21,6 @@ class Game extends Component {
     counter: 30,
     isDisabled: true,
     answered: false,
-    // rightAnswer: false,
   };
 
   async componentDidMount() {
@@ -38,7 +37,6 @@ class Game extends Component {
     const response = await fetch(QUESTIONS_API);
     const data = await response.json();
     const successful = data.results;
-    // console.log(successful);
 
     if (data.response_code === ERROR_DATA) {
       localStorage.removeItem('token');
@@ -59,17 +57,6 @@ class Game extends Component {
     });
   };
 
-  // objToGlobalState = () => {
-  //   const { questions, curr } = this.state;
-  //   const { dispatch } = this.props;
-  //   const { correct_answer: correct, difficulty } = questions[curr];
-  //   const obj = {
-  //     correct,
-  //     difficulty,
-  //   };
-  //   dispatch(addDiff(obj));
-  // };
-
   confereAnswer = ({ target }) => {
     const { dispatch, score } = this.props;
     const { questions, curr, counter } = this.state;
@@ -77,27 +64,32 @@ class Game extends Component {
     const three = 3;
     const ten = 10;
     let scoreValue = 0;
+
     if (target.value === correct && difficulty === 'easy') {
       scoreValue = (ten + (1 * counter) + score);
       dispatch(addScore(scoreValue));
     }
+
     if (target.value === correct && difficulty === 'medium') {
       scoreValue = (ten + (2 * counter) + score);
       dispatch(addScore(scoreValue));
     }
+
     if (target.value === correct && difficulty === 'hard') {
       scoreValue = (ten + (three * counter) + score);
       dispatch(addScore(scoreValue));
     }
-    // console.log(scoreValue);
   };
 
   toggleStyle = () => {
     const buttons = document.querySelectorAll('button');
+
     buttons.forEach((button) => {
-      if (button.className === 'correctAnswer') {
+      if (button.style.border) {
+        button.style.border = '';
+      } else if (button.className === 'correctAnswer') {
         button.style.border = '3px solid rgb(6, 240, 15)';
-      } else {
+      } else if (button.className === 'wrongAnswer') {
         button.style.border = '3px solid rgb(255, 0, 0)';
       }
     });
@@ -113,22 +105,63 @@ class Game extends Component {
     this.handleClick();
   };
 
-  stopwatch() {
-    const second = 1000;
+  nextQuestion = () => {
+    const { curr } = this.state;
+    const { history } = this.props;
+    const FOUR = 4;
+
+    if (curr < FOUR) {
+      this.setState({
+        curr: curr + 1,
+        answered: false,
+        counter: 30,
+        isDisabled: true,
+      }, () => { this.newAnswers(); });
+      this.toggleStyle();
+      this.setTime();
+    } else {
+      history.push('/feedback');
+    }
+
+    console.log(curr);
+  };
+
+  newAnswers = () => {
+    const { questions, curr } = this.state;
+
+    const { correct_answer: correct, incorrect_answers: incorrect } = questions[curr];
+
+    const answers = [correct, ...incorrect];
+    answers.sort(() => Math.random() - DELTA);
+    console.log(questions);
+
+    this.setState({
+      mixAnswers: answers,
+    });
+  };
+
+  setTime = () => {
     const maxTime = 5000;
     const timer = 30000;
+    setTimeout(() => {
+      this.btnEnable();
+    }, maxTime);
+
+    setTimeout(() => {
+      this.btnDisable();
+    }, timer);
+  };
+
+  stopwatch() {
+    const second = 1000;
     setInterval(() => {
       const { counter } = this.state;
       if (counter <= 0) {
         this.setState({ counter: 0 });
       } else { this.setState({ counter: counter - 1 }); }
     }, second);
-    setTimeout(() => {
-      this.btnEnable();
-    }, maxTime);
-    setTimeout(() => {
-      this.btnDisable();
-    }, timer);
+
+    this.setTime();
   }
 
   btnEnable() {
@@ -169,7 +202,18 @@ class Game extends Component {
                 { response }
               </button>
             )) }
-            {answered && (<button data-testid="btn-next" type="button">Next</button>)}
+            {
+              answered
+            && (
+              <button
+                data-testid="btn-next"
+                type="button"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            )
+            }
           </div>
           <h4>{counter}</h4>
         </div>
