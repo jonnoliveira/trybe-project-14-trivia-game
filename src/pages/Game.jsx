@@ -20,7 +20,7 @@ class Game extends Component {
     curr: 0,
     counter: 30,
     isDisabled: true,
-    answered: false
+    answered: false,
     // rightAnswer: false,
   };
 
@@ -70,7 +70,7 @@ class Game extends Component {
   //   dispatch(addDiff(obj));
   // };
 
- confereAnswer = ({ target }) => {
+  confereAnswer = ({ target }) => {
     const { dispatch, score } = this.props;
     const { questions, curr, counter } = this.state;
     const { correct_answer: correct, difficulty } = questions[curr];
@@ -92,14 +92,7 @@ class Game extends Component {
     // console.log(scoreValue);
   };
 
-  btnEnable() {
-    this.setState({ isDisabled: false });
-  }
-
-  btnDisable() {
-    this.setState({ isDisabled: true });
-  }
-
+  
   stopwatch() {
     const second = 1000;
     const maxTime = 5000;
@@ -133,12 +126,20 @@ class Game extends Component {
     this.setState({ answered: true });
   };
   
-   handleFunctions = ({ target }) => {
+  handleFunctions = ({ target }) => {
     this.confereAnswer({ target });
     this.toggleStyle();
     this.handleClick();
   };
-
+  
+  btnEnable() {
+    this.setState({ isDisabled: false });
+  }
+  
+  btnDisable() {
+    this.setState({ isDisabled: true });
+  }
+  
   render() {
     const { questions, mixAnswers, curr, counter, isDisabled, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
