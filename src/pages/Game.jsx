@@ -20,6 +20,7 @@ class Game extends Component {
     curr: 0,
     counter: 30,
     isDisabled: true,
+    answered: false
     // rightAnswer: false,
   };
 
@@ -69,13 +70,7 @@ class Game extends Component {
   //   dispatch(addDiff(obj));
   // };
 
-  handleFunctions = ({ target }) => {
-    this.confereAnswer({ target });
-    // this.toggleStyle();
-    // this.handleClick();
-  };
-
-  confereAnswer = ({ target }) => {
+ confereAnswer = ({ target }) => {
     const { dispatch, score } = this.props;
     const { questions, curr, counter } = this.state;
     const { correct_answer: correct, difficulty } = questions[curr];
@@ -123,8 +118,29 @@ class Game extends Component {
     }, timer);
   }
 
+  toggleStyle = () => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+      if (button.className === 'correctAnswer') {
+        button.style.border = '3px solid rgb(6, 240, 15)';
+      } else {
+        button.style.border = '3px solid rgb(255, 0, 0)';
+      }
+    });
+  };
+
+  handleClick = () => {
+    this.setState({ answered: true });
+  };
+  
+   handleFunctions = ({ target }) => {
+    this.confereAnswer({ target });
+    this.toggleStyle();
+    this.handleClick();
+  };
+
   render() {
-    const { questions, mixAnswers, curr, counter, isDisabled } = this.state;
+    const { questions, mixAnswers, curr, counter, isDisabled, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
     return (
       <div>
@@ -146,10 +162,14 @@ class Game extends Component {
                 disabled={ isDisabled }
                 value={ response }
                 onClick={ this.handleFunctions }
+                className={ response === correct
+                  ? 'correctAnswer'
+                  : 'wrongAnswer' }
               >
                 { response }
               </button>
             )) }
+            {answered && (<button data-testid="btn-next" type="button">Next</button>)}
           </div>
           <h4>{counter}</h4>
         </div>
