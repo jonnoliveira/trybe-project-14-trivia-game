@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
+// import { addScore } from '../redux/actions';
 
 class Header extends Component {
-  state = {
-    url: '',
-    score: 0,
-  };
+  state = { url: '' };
 
   componentDidMount() {
     this.getProfilePicture();
+    // const { dispatch } = this.props;
+    // dispatch(addScore(2));
   }
 
   getProfilePicture = () => {
@@ -19,8 +19,8 @@ class Header extends Component {
   };
 
   render() {
-    const { name } = this.props;
-    const { url, score } = this.state;
+    const { name, score } = this.props;
+    const { url } = this.state;
 
     return (
       <div>
@@ -41,6 +41,7 @@ Header.propTypes = {}.isRequired;
 const mapStateToProps = (state) => ({
   name: state.loginReducer.name,
   email: state.loginReducer.email,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Header);

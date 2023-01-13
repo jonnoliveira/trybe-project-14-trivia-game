@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { addScore } from '../redux/actions';
 
 const ERROR_DATA = 3;
 const DELTA = 0.5;
 
-export default class Game extends Component {
+class Game extends Component {
   state = {
     questions: [{
       category: '',
@@ -17,13 +18,16 @@ export default class Game extends Component {
     }],
     mixAnswers: [],
     curr: 0,
+    counter: 30,
+    isDisabled: true,
     answered: false,
-    // show: false,
+    // rightAnswer: false,
   };
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
     this.fetchQuestionsAPI(token);
+    this.stopwatch();
   }
 
   fetchQuestionsAPI = async (token) => {
@@ -34,6 +38,7 @@ export default class Game extends Component {
     const response = await fetch(QUESTIONS_API);
     const data = await response.json();
     const successful = data.results;
+    // console.log(successful);
 
     if (data.response_code === ERROR_DATA) {
       localStorage.removeItem('token');
@@ -54,6 +59,39 @@ export default class Game extends Component {
     });
   };
 
+  // objToGlobalState = () => {
+  //   const { questions, curr } = this.state;
+  //   const { dispatch } = this.props;
+  //   const { correct_answer: correct, difficulty } = questions[curr];
+  //   const obj = {
+  //     correct,
+  //     difficulty,
+  //   };
+  //   dispatch(addDiff(obj));
+  // };
+
+  confereAnswer = ({ target }) => {
+    const { dispatch, score } = this.props;
+    const { questions, curr, counter } = this.state;
+    const { correct_answer: correct, difficulty } = questions[curr];
+    const three = 3;
+    const ten = 10;
+    let scoreValue = 0;
+    if (target.value === correct && difficulty === 'easy') {
+      scoreValue = (ten + (1 * counter) + score);
+      dispatch(addScore(scoreValue));
+    }
+    if (target.value === correct && difficulty === 'medium') {
+      scoreValue = (ten + (2 * counter) + score);
+      dispatch(addScore(scoreValue));
+    }
+    if (target.value === correct && difficulty === 'hard') {
+      scoreValue = (ten + (three * counter) + score);
+      dispatch(addScore(scoreValue));
+    }
+    // console.log(scoreValue);
+  };
+
   toggleStyle = () => {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -67,11 +105,42 @@ export default class Game extends Component {
 
   handleClick = () => {
     this.setState({ answered: true });
-    this.toggleStyle();
   };
 
+  handleFunctions = ({ target }) => {
+    this.confereAnswer({ target });
+    this.toggleStyle();
+    this.handleClick();
+  };
+
+  stopwatch() {
+    const second = 1000;
+    const maxTime = 5000;
+    const timer = 30000;
+    setInterval(() => {
+      const { counter } = this.state;
+      if (counter <= 0) {
+        this.setState({ counter: 0 });
+      } else { this.setState({ counter: counter - 1 }); }
+    }, second);
+    setTimeout(() => {
+      this.btnEnable();
+    }, maxTime);
+    setTimeout(() => {
+      this.btnDisable();
+    }, timer);
+  }
+
+  btnEnable() {
+    this.setState({ isDisabled: false });
+  }
+
+  btnDisable() {
+    this.setState({ isDisabled: true });
+  }
+
   render() {
-    const { questions, mixAnswers, curr, answered } = this.state;
+    const { questions, mixAnswers, curr, counter, isDisabled, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
     return (
       <div>
@@ -90,24 +159,29 @@ export default class Game extends Component {
                 key={ index }
                 data-testid={ response === correct
                   ? 'correct-answer' : `wrong-answer-${index}` }
+                disabled={ isDisabled }
+                value={ response }
+                onClick={ this.handleFunctions }
                 className={ response === correct
                   ? 'correctAnswer'
                   : 'wrongAnswer' }
-                onClick={ this.handleClick }
               >
                 { response }
               </button>
             )) }
             {answered && (<button data-testid="btn-next" type="button">Next</button>)}
           </div>
+          <h4>{counter}</h4>
         </div>
       </div>
     );
   }
 }
 
-Game.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
+Game.propTypes = {}.isRequired;
+
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+});
+
+export default connect(mapStateToProps)(Game);
