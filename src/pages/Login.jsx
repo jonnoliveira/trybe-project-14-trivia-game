@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addEmail, addName } from '../redux/actions';
+import { addEmail, addName, addGravatar, addPlayer } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -54,6 +54,8 @@ class Login extends Component {
 
     dispatch(addName(name));
     dispatch(addEmail(email));
+    dispatch(addPlayer(name));
+    dispatch(addGravatar(email));
 
     history.push('/game');
   };
