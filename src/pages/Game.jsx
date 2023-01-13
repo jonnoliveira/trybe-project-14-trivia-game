@@ -161,7 +161,7 @@ class Game extends Component {
 Game.propTypes = {}.isRequired;
 
 const mapStateToProps = (state) => ({
-  score: state.gameReducer.player.score,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Game);
