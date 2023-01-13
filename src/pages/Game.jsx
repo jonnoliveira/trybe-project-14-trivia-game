@@ -106,7 +106,7 @@ class Game extends Component {
   handleClick = () => {
     this.setState({ answered: true });
   };
-  
+
   handleFunctions = ({ target }) => {
     this.confereAnswer({ target });
     this.toggleStyle();
