@@ -92,25 +92,6 @@ class Game extends Component {
     // console.log(scoreValue);
   };
 
-  
-  stopwatch() {
-    const second = 1000;
-    const maxTime = 5000;
-    const timer = 30000;
-    setInterval(() => {
-      const { counter } = this.state;
-      if (counter <= 0) {
-        this.setState({ counter: 0 });
-      } else { this.setState({ counter: counter - 1 }); }
-    }, second);
-    setTimeout(() => {
-      this.btnEnable();
-    }, maxTime);
-    setTimeout(() => {
-      this.btnDisable();
-    }, timer);
-  }
-
   toggleStyle = () => {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -131,15 +112,33 @@ class Game extends Component {
     this.toggleStyle();
     this.handleClick();
   };
-  
+
+  stopwatch() {
+    const second = 1000;
+    const maxTime = 5000;
+    const timer = 30000;
+    setInterval(() => {
+      const { counter } = this.state;
+      if (counter <= 0) {
+        this.setState({ counter: 0 });
+      } else { this.setState({ counter: counter - 1 }); }
+    }, second);
+    setTimeout(() => {
+      this.btnEnable();
+    }, maxTime);
+    setTimeout(() => {
+      this.btnDisable();
+    }, timer);
+  }
+
   btnEnable() {
     this.setState({ isDisabled: false });
   }
-  
+
   btnDisable() {
     this.setState({ isDisabled: true });
   }
-  
+
   render() {
     const { questions, mixAnswers, curr, counter, isDisabled, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
