@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { addDiff } from '../redux/actions';
 
 const ERROR_DATA = 3;
 const DELTA = 0.5;
 
-export default class Game extends Component {
+class Game extends Component {
   state = {
     questions: [{
       category: '',
@@ -25,6 +26,10 @@ export default class Game extends Component {
     this.fetchQuestionsAPI(token);
   }
 
+  componentDidUpdate() {
+    this.objToGlobalState();
+  }
+
   fetchQuestionsAPI = async (token) => {
     const { history } = this.props;
 
@@ -33,6 +38,7 @@ export default class Game extends Component {
     const response = await fetch(QUESTIONS_API);
     const data = await response.json();
     const successful = data.results;
+    // console.log(successful);
 
     if (data.response_code === ERROR_DATA) {
       localStorage.removeItem('token');
@@ -41,7 +47,7 @@ export default class Game extends Component {
     }
 
     // atualizar o array Mix respostas
-    const { correct_answer: correct, incorrect_answers: incorrect,
+    const { correct_answer: correct, incorrect_answers: incorrect, difficulty,
     } = successful[0];
 
     const answers = [correct, ...incorrect];
@@ -50,7 +56,20 @@ export default class Game extends Component {
     this.setState({
       questions: successful,
       mixAnswers: answers,
+      difficulty,
+      correct_answer: correct,
     });
+  };
+
+  objToGlobalState = () => {
+    const { questions, curr } = this.state;
+    const { dispatch } = this.props;
+    const { correct_answer: correct, difficulty } = questions[curr];
+    const obj = {
+      correct,
+      difficulty,
+    };
+    dispatch(addDiff(obj));
   };
 
   render() {
@@ -84,8 +103,6 @@ export default class Game extends Component {
   }
 }
 
-Game.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
+Game.propTypes = {}.isRequired;
+
+export default connect()(Game);
