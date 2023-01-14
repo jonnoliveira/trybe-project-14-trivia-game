@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
-// import { addScore } from '../redux/actions';
+import { addSrc } from '../redux/actions';
 
 class Header extends Component {
-  state = { url: '' };
+  state = {
+    src: '',
+  };
 
   componentDidMount() {
     this.getProfilePicture();
-    // const { dispatch } = this.props;
-    // dispatch(addScore(2));
   }
 
   getProfilePicture = () => {
-    const { email } = this.props;
+    const { email, dispatch } = this.props;
     const hash = md5(email).toString();
-    this.setState({ url: hash });
+    const src = `https://www.gravatar.com/avatar/${hash}`;
+    this.setState({ src });
+
+    dispatch(addSrc(src));
   };
 
   render() {
     const { name, score } = this.props;
-    const { url } = this.state;
+    const { src } = this.state;
 
     return (
       <div>
         <img
           data-testid="header-profile-picture"
           alt="profile"
-          src={ `https://www.gravatar.com/avatar/${url}` }
+          src={ src }
         />
         <p data-testid="header-player-name">{ name }</p>
         <p data-testid="header-score">{ score }</p>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addEmail, addName, addGravatar, addPlayer } from '../redux/actions';
+import { addEmail, addName } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -25,6 +25,11 @@ class Login extends Component {
     }, () => {
       this.btnLoginValidation();
     });
+  };
+
+  goRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
   };
 
   btnLoginValidation = () => {
@@ -54,8 +59,6 @@ class Login extends Component {
 
     dispatch(addName(name));
     dispatch(addEmail(email));
-    dispatch(addPlayer(name));
-    dispatch(addGravatar(email));
 
     history.push('/game');
   };
@@ -96,6 +99,13 @@ class Login extends Component {
               data-testid="btn-play"
             >
               Play
+            </button>
+            <button
+              type="button"
+              onClick={ this.goRanking }
+              data-testid="btn-ranking"
+            >
+              Ranking
             </button>
             <Link to="/settings">
               <button
