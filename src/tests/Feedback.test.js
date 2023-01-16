@@ -5,10 +5,7 @@ import Feedback from '../pages/Feedback';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
-// jest.spyOn(global, 'fetch');
-// global.fetch.mockResolvedValue({
-//   json: jest.fn().mockResolvedValue(mockData),
-// });
+
 
 describe('Test the "Feedback page"', () => {
   const mockData = [

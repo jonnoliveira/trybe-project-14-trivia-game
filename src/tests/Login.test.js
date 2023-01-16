@@ -27,19 +27,28 @@ describe('Login page tests', () => {
         userEvent.type(email, 'joao@dominio.com');
         expect(button).toBeEnabled();
     })
-    // test('if name and email are dispatched to global state', async () => {
-    //     const { store, history } = renderWithRouterAndRedux(<App />);
-    //     const nameInput = await screen.getByPlaceholderText("Digite o seu melhor nome");
-    //     const emailInput = screen.getByPlaceholderText('Digite seu melhor email');
-    //     const button = screen.getByRole('button', { name: /play/i });
+    test('if name and email are dispatched to global state', async () => {
+        const mockData = {
+            "response_code": 0,
+            "response_message": "Token Generated Successfully!",
+            "token": "1e9b9413a87a6acef963974826f09fd0662284d7de7386aa6c46cfbc2095229b"
+        };
 
-    //     act(() => {
-    //         userEvent.type(nameInput, 'João');
-    //         userEvent.type(emailInput, 'joao@dominio.com');
-    //         userEvent.click(button);
-    //     });
-    //     const { loginReducer: { name, email } } = store.getState();
-    //     expect(name).toBe('João');
-    //     expect(email).toBe('joao@dominio.com');
-    // });
+        jest.spyOn(global, 'fetch');
+        global.fetch.mockResolvedValue({
+            json: jest.fn().mockResolvedValue(mockData),
+        });
+
+        renderWithRouterAndRedux(<App />);
+
+        const name = screen.getByPlaceholderText("Digite o seu melhor nome");
+        const email = screen.getByPlaceholderText('Digite seu melhor email');
+        const button = screen.getByRole('button', { name: /play/i });
+
+        act(() => {
+            userEvent.type(name, 'João');
+            userEvent.type(email, 'joao@dominio.com');
+            userEvent.click(button);
+        });
+    });
 });
