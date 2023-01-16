@@ -27,11 +27,6 @@ class Login extends Component {
     });
   };
 
-  goRanking = () => {
-    const { history } = this.props;
-    history.push('/ranking');
-  };
-
   btnLoginValidation = () => {
     const { email, name } = this.state;
 
@@ -100,13 +95,7 @@ class Login extends Component {
             >
               Play
             </button>
-            <button
-              type="button"
-              onClick={ this.goRanking }
-              data-testid="btn-ranking"
-            >
-              Ranking
-            </button>
+
             <Link to="/settings">
               <button
                 type="button"
