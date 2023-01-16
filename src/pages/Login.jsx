@@ -12,7 +12,7 @@ class Login extends Component {
   };
 
   onClickPlay = async () => {
-    const data = await (await fetch('https://opentdb.com/api_token.php?command=request')).json();
+    const data = await (await (await fetch('https://opentdb.com/api_token.php?command=request')).json());
     localStorage.setItem('token', data.token);
   };
 
@@ -25,11 +25,6 @@ class Login extends Component {
     }, () => {
       this.btnLoginValidation();
     });
-  };
-
-  goRanking = () => {
-    const { history } = this.props;
-    history.push('/ranking');
   };
 
   btnLoginValidation = () => {
@@ -100,13 +95,7 @@ class Login extends Component {
             >
               Play
             </button>
-            <button
-              type="button"
-              onClick={ this.goRanking }
-              data-testid="btn-ranking"
-            >
-              Ranking
-            </button>
+
             <Link to="/settings">
               <button
                 type="button"
