@@ -6,7 +6,6 @@ import { addAssertions, addScore } from '../redux/actions';
 
 const ERROR_DATA = 3;
 const DELTA = 0.5;
-
 class Game extends Component {
   state = {
     questions: [{
@@ -26,7 +25,7 @@ class Game extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
-    this.fetchQuestionsAPI(token);
+    await this.fetchQuestionsAPI(token);
     this.stopwatch();
   }
 
@@ -35,16 +34,15 @@ class Game extends Component {
     const QUESTIONS_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
     const response = await fetch(QUESTIONS_API);
     const data = await response.json();
-    const successful = data.results;
 
-    if (data.response_code === ERROR_DATA) {
+    if (await data.response_code === ERROR_DATA) {
       localStorage.removeItem('token');
       history.push('/');
       return;
     }
 
     this.setState({
-      questions: successful,
+      questions: await data.results,
     }, () => {
       this.newAnswers();
     });
@@ -69,7 +67,6 @@ class Game extends Component {
     const TEN = 10;
     let scoreValue = 0;
     let totalAssertions = assertions;
-    console.log(totalAssertions);
 
     if (isCorrect && difficulty === 'easy') {
       scoreValue = (TEN + (1 * counter) + score);
@@ -160,7 +157,6 @@ class Game extends Component {
     setTimeout(() => {
       this.btnEnable();
     }, MAXTIME);
-
     setTimeout(() => {
       this.btnDisable();
     }, TIMER);
@@ -228,7 +224,7 @@ class Game extends Component {
             )
             }
           </div>
-          <h4>{counter}</h4>
+          <div data-testid="timer">{counter}</div>
         </div>
       </section>
     );

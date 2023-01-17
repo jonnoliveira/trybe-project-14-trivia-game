@@ -9,7 +9,7 @@ class Ranking extends Component {
   };
 
   componentDidMount() {
-    this.retrivingPlayers();
+    this.retrievingPlayers();
   }
 
   goHome = () => {
@@ -25,7 +25,7 @@ class Ranking extends Component {
     history.push('/');
   };
 
-  retrivingPlayers = () => {
+  retrievingPlayers = () => {
     const players = JSON.parse(localStorage.getItem('players'));
     const orderPlayers = players.sort((a, b) => b.score - a.score);
     this.setState({ players: orderPlayers });
