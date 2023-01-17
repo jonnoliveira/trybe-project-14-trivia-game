@@ -47,7 +47,6 @@ describe('Test the "Ranking page"', () => {
 
     renderWithRouterAndRedux(<App />, initialState, initialEntries);
 
-
     // player 01
     const imgPlayer01 = screen.getByRole('img', {
       name: /Josefino Maria de Souza/i,

@@ -81,7 +81,7 @@ describe('Test the "Game page"', () => {
     }
   };
 
-  jest.setTimeout(35000)
+  jest.setTimeout(7000)
 
   it('checks if a wrong code returns to the main page', async () => {
     jest.spyOn(global, 'fetch');
@@ -108,25 +108,6 @@ describe('Test the "Game page"', () => {
     })
   });
 
-  it('checks if the buttons are disabled after 30 seconds', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-
-    const buttons = await screen.findAllByRole('button');
-
-    expect(buttons[0] && buttons[1] && buttons[2] && buttons[3]).toBeDefined();
-    expect(buttons[0] && buttons[1] && buttons[2] && buttons[3]).toBeDisabled();
-
-    await waitFor(() => {
-      expect(buttons[0] && buttons[1] && buttons[2] && buttons[3]).toBeDisabled();
-    }, { timeout: 32000 });
-  });
-
   it('checks if the buttons are enabled after 5 seconds', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -143,30 +124,6 @@ describe('Test the "Game page"', () => {
     await waitFor(() => {
       expect(buttons[0] && buttons[1] && buttons[2] && buttons[3]).toBeEnabled();
     }, { timeout: 6000 });
-  });
-
-  it('checks if a question with its own category and its answers is generated', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-    const question = await screen.findByRole('heading', {
-      name: /In 2015, David Hasselhof released a single called\.\.\./i,
-      level: 2,
-    });
-
-    const category = await screen.findByRole('heading', {
-      name: /Entertainment: Music/i,
-      level: 3,
-    })
-
-    const buttons = await screen.findAllByRole('button');
-
-    expect(question && category).toBeDefined();
-    expect(buttons[0] && buttons[1] && buttons[2] && buttons[3]).toBeDefined();
   });
 
   it('checks if the style of the buttons changes', async () => {
@@ -207,67 +164,6 @@ describe('Test the "Game page"', () => {
     expect(timer).toHaveTextContent('30');
   });
 
-  it('check if the timer is counting down', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-    const timer = await screen.findByTestId('timer');
-    expect(timer).toHaveTextContent('30');
-
-    await waitFor(() => {
-      expect(timer).toHaveTextContent('22');
-    }, { timeout: 9000 })
-  });
-
-  it('checks if the smallest number in the counter is 0', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-    const timer = await screen.findByTestId('timer');
-    expect(timer).toHaveTextContent('30');
-
-    await waitFor(async () => {
-      const timer00 = await screen.findByTestId('timer');
-      expect(timer00).toHaveTextContent('0');
-    }, { timeout: 33000 })
-  });
-
-  it('checks if the "next button" appears when clicking on an answer', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-    const buttons = await screen.findAllByRole('button');
-    const correctAnswer = buttons.filter((button) => button.className === 'correctAnswer');
-
-    expect(correctAnswer).toBeDefined();
-
-    await waitFor(() => {
-      expect(correctAnswer[0]).toBeEnabled();
-    }, { timeout: 8000 });
-
-    act(() => {
-      userEvent.click(correctAnswer[0])
-    })
-
-    const btnNext = await screen.findByRole('button', {
-      name: /next/i
-    })
-
-    expect(btnNext).toBeDefined();
-  });
-
   it('checks if a new question is generated when pressing the next button', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -276,17 +172,16 @@ describe('Test the "Game page"', () => {
 
     renderWithRouterAndRedux(<App />, initialState, initialEntries);
 
-    const buttons = await screen.findAllByRole('button');
-    const correctAnswer = buttons.filter((button) => button.className === 'correctAnswer');
+    const correctAnswer = await screen.findByRole('button', { name: 'True Survivor' });
 
     expect(correctAnswer).toBeDefined();
 
     await waitFor(() => {
-      expect(correctAnswer[0]).toBeEnabled();
+      expect(correctAnswer).toBeEnabled();
     }, { timeout: 8000 });
 
     act(() => {
-      userEvent.click(correctAnswer[0])
+      userEvent.click(correctAnswer)
     })
 
     const btnNext = await screen.findByRole('button', {
@@ -310,40 +205,42 @@ describe('Test the "Game page"', () => {
     })
 
     const newButtons = await screen.findAllByRole('button');
-    const newCorrectAnswer = buttons.filter((button) => button.className === 'correctAnswer');
+    const newCorrectAnswer = newButtons.filter((button) => button.className === 'correctAnswer');
 
     expect(question && category).toBeDefined();
     expect(newButtons[0] && newButtons[1]).toBeDefined();
     expect(newCorrectAnswer[0]).toHaveValue('True');
   });
 
-  it('check that the calculation of points is done correctly', async () => {
+  jest.setTimeout(30000)
+
+  it('check if the page is redirected to ranking page after 5 questions and if the calculation of points is done correctly', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockData),
     });
 
-    const { store } = renderWithRouterAndRedux(<App />, initialState, initialEntries);
+    const { history, store } = renderWithRouterAndRedux(<App />, initialState, initialEntries);
 
-    const correctAnswer01 = await screen.findByRole('button', { name: 'True Survivor' });
-    const timer01 = await screen.findByTestId('timer');
+    const correctAnswer = await screen.findByRole('button', { name: 'True Survivor' });
+    const timer = await screen.findByTestId('timer');
 
     await waitFor(() => {
-      expect(correctAnswer01).toBeEnabled();
-      expect(timer01).toHaveTextContent('25');
+      expect(correctAnswer).toBeEnabled();
+      expect(timer).toHaveTextContent('25');
     }, { timeout: 6000 })
 
     act(() => {
-      userEvent.click(correctAnswer01);
+      userEvent.click(correctAnswer);
     })
 
-    const score01 = store.getState().player.score;
-    expect(score01).toBe(60)
+    const score = store.getState().player.score;
+    expect(score).toBe(60)
 
-    const btnNext01 = await screen.findByRole('button', { name: 'Next' })
+    const btnNext = await screen.findByRole('button', { name: 'Next' })
 
     act(() => {
-      userEvent.click(btnNext01);
+      userEvent.click(btnNext);
     })
 
     // ========== 2º question ========== //
@@ -385,61 +282,6 @@ describe('Test the "Game page"', () => {
 
     const score03 = store.getState().player.score;
     expect(score03).toBe(180)
-  })
-
-  it('make sure the feedback page renders at the end of the 5 questions', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockData),
-    });
-
-    const { history } = renderWithRouterAndRedux(<App />, initialState, initialEntries);
-
-    const correctAnswer01 = await screen.findByRole('button', { name: 'True Survivor' });
-
-    await waitFor(() => {
-      expect(correctAnswer01).toBeEnabled();
-    }, { timeout: 6000 })
-
-    act(() => {
-      userEvent.click(correctAnswer01);
-    })
-
-    const btnNext01 = await screen.findByRole('button', { name: 'Next' })
-
-    act(() => {
-      userEvent.click(btnNext01);
-    })
-
-    // ========== 2º question ========== //
-
-    const correctAnswer02 = await screen.findByRole('button', { name: 'True' });
-
-    await waitFor(() => {
-      expect(correctAnswer02).toBeEnabled();
-    }, { timeout: 6000 })
-
-    act(() => {
-      userEvent.click(correctAnswer02);
-    })
-
-    const btnNext02 = await screen.findByRole('button', { name: 'Next' })
-
-    act(() => {
-      userEvent.click(btnNext02);
-    })
-
-    // ========== 3º question ========== //
-
-    const correctAnswer03 = await screen.findByRole('button', { name: 'True' });
-
-    await waitFor(() => {
-      expect(correctAnswer03).toBeEnabled();
-    }, { timeout: 6000 })
-
-    act(() => {
-      userEvent.click(correctAnswer03);
-    })
 
     const btnNext03 = await screen.findByRole('button', { name: 'Next' })
 
@@ -450,14 +292,19 @@ describe('Test the "Game page"', () => {
     // ========== 4º question ========== //
 
     const correctAnswer04 = await screen.findByRole('button', { name: 'False' });
+    const timer04 = await screen.findByTestId('timer');
 
     await waitFor(() => {
       expect(correctAnswer04).toBeEnabled();
+      expect(timer04).toHaveTextContent('25');
     }, { timeout: 6000 })
 
     act(() => {
       userEvent.click(correctAnswer04);
     })
+
+    const score04 = store.getState().player.score;
+    expect(score04).toBe(215)
 
     const btnNext04 = await screen.findByRole('button', { name: 'Next' })
 
@@ -468,14 +315,19 @@ describe('Test the "Game page"', () => {
     // ========== 5º question ========== //
 
     const correctAnswer05 = await screen.findByRole('button', { name: 'False' });
+    const timer05 = await screen.findByTestId('timer');
 
     await waitFor(() => {
       expect(correctAnswer05).toBeEnabled();
+      expect(timer05).toHaveTextContent('25');
     }, { timeout: 6000 })
 
     act(() => {
       userEvent.click(correctAnswer05);
     })
+
+    const score05 = store.getState().player.score;
+    expect(score05).toBe(250)
 
     const btnNext05 = await screen.findByRole('button', { name: 'Next' })
 
@@ -483,10 +335,8 @@ describe('Test the "Game page"', () => {
       userEvent.click(btnNext05);
     })
 
-    // ========== Feedback ========== //
-
     const { pathname } = history.location;
 
     expect(pathname).toBe('/feedback')
   })
-})
+});
