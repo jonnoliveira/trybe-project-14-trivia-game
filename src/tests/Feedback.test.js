@@ -8,68 +8,6 @@ import userEvent from '@testing-library/user-event';
 
 
 describe('Test the "Feedback page"', () => {
-  const mockData = [
-    {
-      "category": "Science & Nature",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "Which of the following plastic is commonly used for window frames, gutters and drain pipes?",
-      "correct_answer": "Polyvinylchloride (PVC) ",
-      "incorrect_answers": [
-        "Polyethylene (PE)",
-        "Polypropylene (PP)",
-        "Polystyrene (PS)"
-      ]
-    },
-    {
-      "category": "Entertainment: Japanese Anime & Manga",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "In &quot;One Piece&quot;, what does &quot;the Pirate King&quot; mean to the captain of the Straw Hat Pirates?",
-      "correct_answer": "Freedom",
-      "incorrect_answers": [
-        "Promise",
-        "Adventure",
-        "Friendship"
-      ]
-    },
-    {
-      "category": "Science & Nature",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "How many types of quarks are there in the standard model of physics?",
-      "correct_answer": "6",
-      "incorrect_answers": [
-        "2",
-        "3",
-        "4"
-      ]
-    },
-    {
-      "category": "Entertainment: Music",
-      "type": "multiple",
-      "difficulty": "medium",
-      "question": "What M83 was featured in Grand Theft Auto V&#039;s radio?",
-      "correct_answer": "Midnight City",
-      "incorrect_answers": [
-        "Outro",
-        "Reunion",
-        "Wait"
-      ]
-    },
-    {
-      "category": "Entertainment: Video Games",
-      "type": "multiple",
-      "difficulty": "medium",
-      "question": "What is the lowest amount of max health you can have in Team Fortress 2?",
-      "correct_answer": "70",
-      "incorrect_answers": [
-        "100",
-        "50",
-        "95"
-      ]
-    }
-  ];
   const initialEntries = '/feedback';
   it('checks if the "Feedback" page is rendered correctly', () => {
     ;
