@@ -70,7 +70,7 @@ Foi uma ótima oportunidade desenvolver esse projeto, principalmente por se trat
 
 ## 100% :heavy_check_mark:
 
-![Project-Tivia-Game-Grade]()
+![Project-Tivia-Game-Grade](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-game-grade.png)
 
 </details> 
  
