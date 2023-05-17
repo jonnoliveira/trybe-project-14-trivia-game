@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   score: 0,
   src: '',
   index: 0,
+  category: '',
+  difficulty: '',
 };
 
 const player = (state = INITIAL_STATE, action) => {

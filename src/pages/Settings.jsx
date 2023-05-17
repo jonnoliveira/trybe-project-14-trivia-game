@@ -44,19 +44,17 @@ class Settings extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div className="settings-container">
-        <form className="form-container">
+      <div>
+        <form action="">
           <h2
             data-testid="settings-title"
-            className="form-title"
           >
             Settings
           </h2>
 
-          <label className="label-select" htmlFor="categories-question">
+          <label htmlFor="categories-question">
             Categories:
             <select
-              className="form-select select-control"
               id="categories-question"
               name="category"
               onChange={ this.handleCatDif }
@@ -80,10 +78,9 @@ class Settings extends Component {
             </select>
           </label>
 
-          <label className="label-select" htmlFor="difficulty-question">
+          <label htmlFor="difficulty-question">
             Difficulty
             <select
-              className="form-select select-control"
               id="difficulty-question"
               name="difficulty"
               onChange={ this.handleCatDif }
@@ -94,7 +91,7 @@ class Settings extends Component {
               <option value="hard">Hard</option>
             </select>
           </label>
-          <Link className="btn btn-dark btn-settings" to="/">Página Inicial</Link>
+          <Link to="/">Página Inicial</Link>
 
         </form>
       </div>

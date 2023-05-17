@@ -33,9 +33,10 @@ class Game extends Component {
     const { history, category, difficulty } = this.props;
     let QUESTIONS_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
-    if (category !== 'any' && difficulty === 'any') {
+    if (category !== 'undefined' && difficulty === 'undefined') {
       QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&token=${token}`;
-    } else {
+    }
+    if (category !== 'undefined' && difficulty !== 'undefined') {
       QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&token=${token}`;
     }
 
