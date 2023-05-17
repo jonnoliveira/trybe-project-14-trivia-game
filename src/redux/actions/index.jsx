@@ -5,6 +5,8 @@ export const ADD_ASSERTIONS = 'ADD_ASSERTIONS';
 export const ADD_SCORE = 'ADD_SCORE';
 export const ADD_SRC = 'ADD_HASH';
 export const ADD_INDEX = 'ADD_INDEX';
+export const CHANGE_CATEGORY = 'CHANGE_CATEGORY';
+export const CHANGE_DIFFICULTY = 'CHANGE_DIFFICULTY';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -35,4 +37,14 @@ export const addSrc = (src) => ({
 export const addIndex = (index) => ({
   type: ADD_INDEX,
   payload: index,
+});
+
+export const changeCategory = (category) => ({
+  type: CHANGE_CATEGORY,
+  category,
+});
+
+export const changeDifficulty = (difficulty) => ({
+  type: CHANGE_DIFFICULTY,
+  difficulty,
 });

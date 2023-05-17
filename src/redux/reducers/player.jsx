@@ -1,4 +1,10 @@
-import { ADD_ASSERTIONS, ADD_SRC, ADD_SCORE, ADD_INDEX } from '../actions';
+import {
+  ADD_ASSERTIONS,
+  ADD_SRC, ADD_SCORE,
+  ADD_INDEX,
+  CHANGE_CATEGORY,
+  CHANGE_DIFFICULTY,
+} from '../actions';
 
 const INITIAL_STATE = {
   assertions: 0,
@@ -28,6 +34,16 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       index: action.payload,
+    };
+  case CHANGE_CATEGORY:
+    return {
+      ...state,
+      category: action.category,
+    };
+  case CHANGE_DIFFICULTY:
+    return {
+      ...state,
+      difficulty: action.difficulty,
     };
   default:
     return state;

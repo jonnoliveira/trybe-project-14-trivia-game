@@ -30,8 +30,15 @@ class Game extends Component {
   }
 
   fetchQuestionsAPI = async (token) => {
-    const { history } = this.props;
-    const QUESTIONS_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
+    const { history, category, difficulty } = this.props;
+    let QUESTIONS_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
+
+    if (category !== 'any' && difficulty === 'any') {
+      QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&token=${token}`;
+    } else {
+      QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&token=${token}`;
+    }
+
     const response = await fetch(QUESTIONS_API);
     const data = await response.json();
 
@@ -67,27 +74,21 @@ class Game extends Component {
     const TEN = 10;
     let scoreValue = 0;
     let totalAssertions = assertions;
-
     if (isCorrect && difficulty === 'easy') {
       scoreValue = (TEN + (1 * counter) + score);
       totalAssertions += 1;
-
       dispatch(addScore(scoreValue));
       dispatch(addAssertions(totalAssertions));
     }
-
     if (isCorrect && difficulty === 'medium') {
       scoreValue = (TEN + (2 * counter) + score);
       totalAssertions += 1;
-
       dispatch(addScore(scoreValue));
       dispatch(addAssertions(totalAssertions));
     }
-
     if (isCorrect && difficulty === 'hard') {
       scoreValue = (TEN + (THREE * counter) + score);
       totalAssertions += 1;
-
       dispatch(addScore(scoreValue));
       dispatch(addAssertions(totalAssertions));
     }
@@ -241,6 +242,8 @@ const mapStateToProps = (state) => ({
   src: state.player.src,
   name: state.loginReducer.name,
   index: state.player.index,
+  category: state.player.category,
+  difficulty: state.player.difficulty,
 });
 
 export default connect(mapStateToProps)(Game);
