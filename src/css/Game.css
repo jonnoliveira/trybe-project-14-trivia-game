@@ -1,0 +1,67 @@
+.game-container {
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  height: 100vh;
+}
+
+.game-info-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: space-between;
+  margin-top: 5vh;
+  padding: 2vw;
+}
+
+.game-timer-question-container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 5vw;
+  width: 100%;
+}
+
+.timer-container {
+  align-items: center;
+  display: flex;
+  font-size: 1.2em;
+  gap: 20vw;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.question-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  font-style: italic;
+  gap: 3vh;
+  justify-content: center;
+  margin-top: 2vh;
+  text-align: center;
+}
+
+.answer-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  justify-content: center;
+  padding: 5vw;
+  width: 100%;
+}
+
+.answer-container button {
+  border: 1px solid gray;
+  border-radius: 15px;
+  font-size: 0.7em;
+  height: 6vh;
+  letter-spacing: 1px;
+  padding: 1vh;
+  text-transform: uppercase;
+  width: 100%;
+}
+

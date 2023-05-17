@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addAssertions, addScore, addIndex } from '../redux/actions';
+import home from '../images/home.svg';
+
+import '../css/Ranking.css';
 
 class Ranking extends Component {
   state = {
@@ -41,28 +44,38 @@ class Ranking extends Component {
   render() {
     const { players } = this.state;
     return (
-      <section data-testid="ranking-title">
-        <div>
+      <section data-testid="ranking-title" className="ranking-container">
+        <div className="ranking-players-container">
           {
             players.map(({ index, name, src, assertions, score }) => (
-              <div key={ name }>
+              <div
+                key={ `${name}-${index}-${assertions}` }
+                className="ranking-players"
+              >
                 <img src={ src } alt={ name } />
                 <h3 data-testid={ `player-name-${index}` }>{ name }</h3>
-                <p data-testid={ `player-score-${index}` }>{ score }</p>
-                <p>{ assertions }</p>
+                <p data-testid={ `player-score-${index}` }>
+                  S:
+                  { ' ' }
+                  { score }
+                </p>
+                <p>
+                  A:
+                  { ' ' }
+                  { assertions }
+                </p>
               </div>
             ))
           }
         </div>
-        <div>
-          <button
-            type="button"
-            data-testid="btn-go-home"
-            onClick={ this.goHome }
-          >
-            Home
-          </button>
-        </div>
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ this.goHome }
+        >
+          <img src={ home } alt="Home icon" />
+          Home
+        </button>
       </section>
     );
   }

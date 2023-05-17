@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import { addSrc } from '../redux/actions';
 
+import '../css/header.css';
+
 class Header extends Component {
   state = {
     src: '',
@@ -26,7 +28,7 @@ class Header extends Component {
     const { src } = this.state;
 
     return (
-      <div>
+      <div className="header-container">
         <img
           data-testid="header-profile-picture"
           alt="profile"

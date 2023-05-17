@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { addAssertions, addScore, addIndex } from '../redux/actions';
+import happy from '../images/happy.svg';
+import sad from '../images/sad.svg';
+
+import '../css/Feedback.css';
 
 class Feedback extends Component {
   feedbackMsg = () => {
@@ -11,11 +15,17 @@ class Feedback extends Component {
 
     if (assertions < THREE) {
       return (
-        <h2 data-testid="feedback-text">Could be better...</h2>
+        <div className="feedback-msg">
+          <h2 data-testid="feedback-text">Could be better...</h2>
+          <img src={ sad } alt="Sad face icon" />
+        </div>
       );
     }
     return (
-      <h2 data-testid="feedback-text">Well Done!</h2>
+      <div className="feedback-msg">
+        <h2 data-testid="feedback-text">Well Done!</h2>
+        <img src={ happy } alt="Happy face icon" />
+      </div>
     );
   };
 
@@ -40,38 +50,42 @@ class Feedback extends Component {
   render() {
     const { score, assertions } = this.props;
     return (
-      <section>
+      <section className="feedback-container">
         <Header />
-        <div>
-          <h1>RESULTADO</h1>
-          {
-            this.feedbackMsg()
-          }
-          <div>
-            <h3>Placar Final:</h3>
-            <p data-testid="feedback-total-score">{ score }</p>
-          </div>
-          <div>
-            <h3>Perguntas certas:</h3>
-            <p data-testid="feedback-total-question">{ assertions }</p>
-          </div>
-          <div>
-            <button
-              type="button"
-              onClick={ this.newGame }
-              data-testid="btn-play-again"
-            >
-              Play Again
+        <div className="feedback-result-container">
+          <div className="feedback-result">
 
-            </button>
-            <button
-              type="button"
-              onClick={ this.goRanking }
-              data-testid="btn-ranking"
-            >
-              Ranking
-            </button>
+            <h1>RESULTADO FINAL:</h1>
+            {
+              this.feedbackMsg()
+            }
+            <div className="feedback-score">
+              <h3>Placar Final:</h3>
+              <p data-testid="feedback-total-score">{ score }</p>
+            </div>
+            <div className="feedback-questions">
+              <h3>Perguntas certas:</h3>
+              <p data-testid="feedback-total-question">{ assertions }</p>
+            </div>
+            <div className="feedback-buttons">
+              <button
+                type="button"
+                onClick={ this.newGame }
+                data-testid="btn-play-again"
+              >
+                Play Again
 
+              </button>
+
+              <button
+                type="button"
+                onClick={ this.goRanking }
+                data-testid="btn-ranking"
+              >
+                Ranking
+              </button>
+
+            </div>
           </div>
         </div>
       </section>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { addAssertions, addScore } from '../redux/actions';
+import '../css/Game.css';
 
 const ERROR_DATA = 3;
 const DELTA = 0.5;
@@ -33,10 +34,10 @@ class Game extends Component {
     const { history, category, difficulty } = this.props;
     let QUESTIONS_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
-    if (category !== 'undefined' && difficulty === 'undefined') {
+    if (category !== 'any' && difficulty === 'any') {
       QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&token=${token}`;
     }
-    if (category !== 'undefined' && difficulty !== 'undefined') {
+    if (category !== 'any' && difficulty !== 'any') {
       QUESTIONS_API = `https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&token=${token}`;
     }
 
@@ -51,9 +52,7 @@ class Game extends Component {
 
     this.setState({
       questions: await data.results,
-    }, () => {
-      this.newAnswers();
-    });
+    }, () => { this.newAnswers(); });
   };
 
   newAnswers = () => {
@@ -61,9 +60,7 @@ class Game extends Component {
     const { correct_answer: correct, incorrect_answers: incorrect } = questions[curr];
     const answers = [correct, ...incorrect];
     answers.sort(() => Math.random() - DELTA);
-    this.setState({
-      mixAnswers: answers,
-    });
+    this.setState({ mixAnswers: answers });
   };
 
   checkQuestion = ({ target }) => {
@@ -98,13 +95,16 @@ class Game extends Component {
   toggleStyle = () => {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
-      if (button.style.border) {
-        button.style.border = '';
+      if (button.style.backgroundColor) {
+        button.style.backgroundColor = '';
+        button.style.color = '';
       } else if (button.className === 'correctAnswer') {
-        button.style.border = '3px solid rgb(6, 240, 15)';
+        button.style.backgroundColor = '#548745';
+        button.style.color = '#fff';
         button.disabled = 'true';
       } else if (button.className === 'wrongAnswer') {
-        button.style.border = '3px solid rgb(255, 0, 0)';
+        button.style.backgroundColor = '#3f1f26';
+        button.style.color = '#fff';
         button.disabled = 'true';
       }
     });
@@ -156,12 +156,8 @@ class Game extends Component {
   setTime = () => {
     const MAXTIME = 5000;
     const TIMER = 30000;
-    setTimeout(() => {
-      this.btnEnable();
-    }, MAXTIME);
-    setTimeout(() => {
-      this.btnDisable();
-    }, TIMER);
+    setTimeout(() => { this.btnEnable(); }, MAXTIME);
+    setTimeout(() => { this.btnDisable(); }, TIMER);
   };
 
   btnEnable() {
@@ -187,16 +183,24 @@ class Game extends Component {
     const { questions, mixAnswers, curr, counter, isDisabled, answered } = this.state;
     const { question, category, correct_answer: correct } = questions[curr];
     return (
-      <section>
+      <section className="game-container">
         <Header />
-        <div>
-          <h2 data-testid="question-text">
-            { question }
-          </h2>
-          <h3 data-testid="question-category">
-            { category }
-          </h3>
-          <div data-testid="answer-options">
+        <div className="game-info-container">
+          <div className="game-timer-question-container">
+            <div data-testid="timer" className="timer-container">
+              <p>Timer: </p>
+              <p>{counter}</p>
+            </div>
+            <div className="question-container">
+              <p data-testid="question-category">
+                { category }
+              </p>
+              <p data-testid="question-text">
+                { question }
+              </p>
+            </div>
+          </div>
+          <div data-testid="answer-options" className="answer-container">
             { mixAnswers.map((response, index) => (
               <button
                 type="button"
@@ -206,9 +210,7 @@ class Game extends Component {
                 disabled={ isDisabled }
                 value={ response }
                 onClick={ this.handleFunctions }
-                className={ response === correct
-                  ? 'correctAnswer'
-                  : 'wrongAnswer' }
+                className={ response === correct ? 'correctAnswer' : 'wrongAnswer' }
               >
                 { response }
               </button>
@@ -217,7 +219,6 @@ class Game extends Component {
               answered
             && (
               <button
-                data-testid="btn-next"
                 type="button"
                 onClick={ this.nextQuestion }
               >
@@ -226,7 +227,6 @@ class Game extends Component {
             )
             }
           </div>
-          <div data-testid="timer">{counter}</div>
         </div>
       </section>
     );

@@ -1,0 +1,21 @@
+.header-container {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.699);
+  display: flex;
+  gap: 15vw;
+  justify-content: space-evenly;
+  padding: 2vh;
+  width: 100%;
+}
+
+.header-container img {
+  border-radius: 50%;
+  width: 50px;
+}
+
+.header-container p {
+  font-size: larger;
+  text-align: center;
+  text-transform: uppercase;
+}
+
