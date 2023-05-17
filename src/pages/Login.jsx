@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { addEmail, addName } from '../redux/actions';
+import image from '../trivia.png';
+
+import '../css/Login.css';
 
 class Login extends Component {
   state = {
@@ -61,16 +64,19 @@ class Login extends Component {
   render() {
     const { isDisabled } = this.state;
     return (
-      <section>
-        <div>
-          <form action="">
+      <section className="login-container">
+        <div className="login-image-container">
+          <img src={ image } alt="Trivia Title" />
+        </div>
+        <div className="login-inputs-container">
+          <form>
 
             <label htmlFor="name">
               <input
                 type="text"
                 name="name"
                 id="name"
-                placeholder="Digite o seu melhor nome"
+                placeholder="Digite seu nome"
                 onChange={ this.onChangeHandler }
                 data-testid="input-player-name"
               />
@@ -81,20 +87,11 @@ class Login extends Component {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Digite seu melhor email"
+                placeholder="Digite um email"
                 onChange={ this.onChangeHandler }
                 data-testid="input-gravatar-email"
               />
             </label>
-
-            <button
-              type="button"
-              disabled={ isDisabled }
-              onClick={ this.toGlobalState }
-              data-testid="btn-play"
-            >
-              Play
-            </button>
 
             <Link to="/settings">
               <button
@@ -105,6 +102,15 @@ class Login extends Component {
                 Settings
               </button>
             </Link>
+
+            <button
+              type="button"
+              disabled={ isDisabled }
+              onClick={ this.toGlobalState }
+              data-testid="btn-play"
+            >
+              Play
+            </button>
           </form>
         </div>
       </section>
