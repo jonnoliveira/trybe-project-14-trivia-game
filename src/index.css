@@ -1,4 +1,17 @@
 body {
+  margin: 0;
+  font-family: Poppins , -apple-system , Droid Sans , Helvetica Neue , sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -60,4 +73,4 @@ body {
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
-}
+} */
