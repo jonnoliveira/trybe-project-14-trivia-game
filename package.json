@@ -1,6 +1,6 @@
 {
   "name": "trivia-react-redux",
-  "homepage": "http://jonnoliveira.github.io/trybe-project-14-Trivia-game",
+  "homepage": "http://jonnoliveira.github.io/trybe-project-14-trivia-game",
   "version": "0.1.0",
   "private": true,
   "engines": {
