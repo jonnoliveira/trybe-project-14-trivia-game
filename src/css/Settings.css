@@ -71,3 +71,35 @@
   color: black;
   text-decoration: none;
 }
+
+@media screen and ( min-width : 1440px ) {
+
+  .settings-info {
+    font-size: 1.2em;
+    width: 30vw;
+  }
+
+  .settings-info label select {
+    font-size: 1em;
+  }
+
+  .settings-home img {
+    width: 30px;
+  }
+}
+
+@media screen and ( min-width : 2560px ) {
+
+  .settings-info {
+    font-size: 2em;
+    width: 30vw;
+  }
+
+  .settings-heading img {
+    width: 60px;
+  }
+
+  .settings-home img {
+    width: 50px;
+  }
+}
