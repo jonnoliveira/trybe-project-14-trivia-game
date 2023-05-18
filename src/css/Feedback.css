@@ -68,5 +68,48 @@
   height: 5vh;
   padding: 1vh;
   text-transform: uppercase;
+  width: 100px;
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .feedback-result {
+    width: 40%;
+  }
+}
+
+@media screen and ( min-width : 1440px ) {
+
+  .feedback-buttons button {
+    border-radius: 50px;
+    font-size: 1em;
+    width: 150px;
+  }
+}
+
+@media screen and ( min-width : 2560px ) {
+
+
+  .feedback-result h1 {
+    font-size: 3em;
+  }
+
+  .feedback-msg h2 {
+    font-size: 2.5em;
+  }
+
+  .feedback-msg img {
+    width: 100px;
+  }
+
+  .feedback-score h3, .feedback-score p, .feedback-questions h3, .feedback-questions p {
+    font-size: 2em;
+  }
+
+  .feedback-buttons button {
+    border-radius: 50px;
+    font-size: 2em;
+    width: 250px;
+  }
 }
 
