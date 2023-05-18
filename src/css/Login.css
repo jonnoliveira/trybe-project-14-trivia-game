@@ -75,3 +75,25 @@
   color: gray;
 }
 
+@media screen and ( min-width : 768px ) {
+
+  .login-image-container img {
+    width: 40%;
+  }
+
+  .login-inputs-container form {
+    width: 40vw;
+  }
+
+  .login-inputs-container form input, .login-inputs-container form button {
+    width: 35vw;
+  }
+}
+
+@media screen and ( min-width : 1024px ) {
+
+  .login-inputs-container form input, .login-inputs-container form button {
+    font-size: 1.1em;
+  }
+}
+
