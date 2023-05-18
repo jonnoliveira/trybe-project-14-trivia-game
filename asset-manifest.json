@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/trybe-project-14-trivia-game/static/css/main.7e4d9f1f.css",
+    "main.css": "/trybe-project-14-trivia-game/static/css/main.2b3b7705.css",
     "main.js": "/trybe-project-14-trivia-game/static/js/main.448826e6.js",
     "static/media/bg.jpg": "/trybe-project-14-trivia-game/static/media/bg.78cd091ef4fe81c3731b.jpg",
     "static/media/trivia.png": "/trybe-project-14-trivia-game/static/media/trivia.7e9181d35c0b06d5abc0.png",
@@ -9,11 +9,11 @@
     "static/media/settings.svg": "/trybe-project-14-trivia-game/static/media/settings.9fd21090dd5930fd0b4d3a7b7d2f490e.svg",
     "static/media/home.svg": "/trybe-project-14-trivia-game/static/media/home.053b35ab9d7931cebbe607dc8fbfb20c.svg",
     "index.html": "/trybe-project-14-trivia-game/index.html",
-    "main.7e4d9f1f.css.map": "/trybe-project-14-trivia-game/static/css/main.7e4d9f1f.css.map",
+    "main.2b3b7705.css.map": "/trybe-project-14-trivia-game/static/css/main.2b3b7705.css.map",
     "main.448826e6.js.map": "/trybe-project-14-trivia-game/static/js/main.448826e6.js.map"
   },
   "entrypoints": [
-    "static/css/main.7e4d9f1f.css",
+    "static/css/main.2b3b7705.css",
     "static/js/main.448826e6.js"
   ]
 }
