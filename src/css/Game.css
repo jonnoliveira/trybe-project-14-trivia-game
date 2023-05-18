@@ -8,7 +8,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 80vh;
   justify-content: space-between;
   margin-top: 5vh;
   padding: 2vw;
@@ -65,3 +65,59 @@
   width: 100%;
 }
 
+@media screen and ( min-width : 768px ) {
+
+  .game-timer-question-container {
+    width: 60%;
+  }
+
+  .answer-container {
+    height: 50%;
+    width: 60%;
+  }
+
+  .answer-container button {
+    width: 90%;
+  }
+}
+
+@media screen and ( min-width : 1024px ) {
+
+  .game-timer-question-container {
+    padding: 3vw;
+  }
+}
+
+@media screen and ( min-width : 1440px ) {
+
+  .timer-container {
+    font-size: 1.5em;
+  }
+
+  .question-container {
+    font-size: 1.2em;
+
+  }
+
+  .answer-container button {
+    font-size: 1em;
+
+  }
+}
+
+@media screen and ( min-width : 2560px ) {
+
+  .timer-container {
+    font-size: 2em;
+  }
+
+  .question-container {
+    font-size: 1.7em;
+
+  }
+
+  .answer-container button {
+    font-size: 1.5em;
+
+  }
+}
