@@ -82,18 +82,37 @@
   }
 
   .login-inputs-container form {
-    width: 40vw;
+    width: 30vw;
   }
 
   .login-inputs-container form input, .login-inputs-container form button {
-    width: 35vw;
+    width: 25vw;
   }
 }
 
 @media screen and ( min-width : 1024px ) {
 
   .login-inputs-container form input, .login-inputs-container form button {
-    font-size: 1.1em;
+    font-size: 1em;
+  }
+}
+
+@media screen and ( min-width : 1440px ) {
+
+  .login-inputs-container form input, .login-inputs-container form button {
+    font-size: 1.2em;
+  }
+}
+
+
+@media screen and ( min-width : 2560px ) {
+
+  .login-image-container img {
+    width: 60%;
+  }
+
+  .login-inputs-container form input, .login-inputs-container form button {
+    font-size: 1.7em;
   }
 }
 
