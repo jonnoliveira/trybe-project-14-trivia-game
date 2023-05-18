@@ -19,3 +19,13 @@
   text-transform: uppercase;
 }
 
+@media screen and ( min-width : 2560px ) {
+
+  .header-container img {
+    width: 100px;
+  }
+
+  .header-container p {
+    font-size: 2.5em;
+  }
+}
