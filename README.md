@@ -135,7 +135,12 @@ Foi uma ótima oportunidade desenvolver esse projeto, principalmente por se trat
 
 </summary>
 
-![Project-Tivia-Game-Preview]()
+![Project-Tivia-Game-Preview-1](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-preview-1.png)
+![Project-Tivia-Game-Preview-2](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-preview-2.png)
+![Project-Tivia-Game-Preview-3](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-preview-3.png)
+![Project-Tivia-Game-Preview-4](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-preview-4.png)
+![Project-Tivia-Game-Preview-5](https://github.com/jonnoliveira/trybe-project-14-trivia-game/blob/main/images/trivia-preview-5.png)
+
 
 </details>
 
