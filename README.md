@@ -2,7 +2,21 @@
 
 ## Esse projeto pertence ao módulo de `front-end` do curso da [Trybe](https://www.betrybe.com/) :green_heart:
 
-## :construction: CSS em aprimoramento :construction:
+## Acesse o projeto clicando [aqui](https://jonnoliveira.github.io/trybe-project-14-trivia-game)! :computer:
+ 
+### Stacks utilizadas no desenvolvimento:
+<div style="display: inline_block"><br>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5 Shield" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3 Shield" />
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="JavaScript Shield" />
+   <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" alt="Jest Shield" />
+   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Shield" />
+   <img src="https://img.shields.io/badge/React_Testing_Library-E33332?style=for-the-badge&logo=TestingLibrary&logoColor=white" alt="Testing_Library Shield" />
+   <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" alt="Redux Shield" />
+</span>
+</div>
+ 
+ #
  
 <details>
  
@@ -13,6 +27,18 @@
 </summary>
 
 No projeto Tivia game usamos duas requisições a API para ter acesso aos dados. Usamos as tecnologias React e Redux para componentização e gerenciamento do estado global da aplicação. Já para aplicação dos testes, a  fim de garantir uma boa qualidade do código e seu funcionamento, utilizamos a RTL/jest.
+
+A pessoa usuária pode:
+
+* Logar no jogo e, se o email tiver cadastro no site Gravatar, ter sua foto associada ao perfil da pessoa usuária;
+
+* Acessar a página referente ao jogo, onde se deverá escolher uma das respostas disponíveis para cada uma das perguntas apresentadas. A resposta deve ser marcada antes do contador de tempo chegar a zero, caso contrário a resposta deverá ser considerada errada.
+ 
+* Ser redirecionada, após 5 perguntas respondidas, para a tela de score, onde o texto mostrado depende do número de acertos.
+
+* Visualizar a página de ranking, se quiser, ao final de cada jogo.
+
+* Configurar algumas opções para o jogo em uma tela de configuração acessível a partir do cabeçalho do app.
 
 Foi uma ótima oportunidade desenvolver esse projeto, principalmente por se tratar de um trabalho em grupo, necessitando de comunicação e colaboração para atingirmos nossos objetivos. Para tanto, utilizamos o Kanban das metodologias ágeis para organização das tarefas. Veja mais abaixo!
 
