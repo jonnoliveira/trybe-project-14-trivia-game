@@ -147,9 +147,9 @@ describe('Test the "Game page"', () => {
     const correctAnswer = await screen.findByText('True Survivor');
     const wrongAnswers = buttons.filter((button) => button.className !== 'correctAnswer');
 
-    expect(correctAnswer.style.borderColor).toBe('rgb(6, 240, 15)');
+    expect(correctAnswer.style.backgroundColor).toBe('rgb(84, 135, 69)');
     expect(wrongAnswers).toHaveLength(3);
-    expect(wrongAnswers[0].style.borderColor && wrongAnswers[1].style.borderColor && wrongAnswers[2].style.borderColor).toBe('rgb(255, 0, 0)');
+    expect(wrongAnswers[0].style.backgroundColor && wrongAnswers[1].style.backgroundColor && wrongAnswers[2].style.backgroundColor).toBe('rgb(63, 31, 38)');
   })
 
   it('check if there is a timer on the page', async () => {
@@ -194,20 +194,16 @@ describe('Test the "Game page"', () => {
       userEvent.click(btnNext)
     })
 
-    const question = await screen.findByRole('heading', {
-      name: /Russia passed a law in 2013 which outlaws telling children that homosexuals exist./i,
-      level: 2,
-    });
+    const question = await screen.findByTestId('question-text');
 
-    const category = await screen.findByRole('heading', {
-      name: /Politics/i,
-      level: 3,
-    })
+    const category = await screen.findByTestId('question-category')
 
     const newButtons = await screen.findAllByRole('button');
     const newCorrectAnswer = newButtons.filter((button) => button.className === 'correctAnswer');
 
     expect(question && category).toBeDefined();
+    expect(question.innerHTML).toBe('Russia passed a law in 2013 which outlaws telling children that homosexuals exist.')
+    expect(category.innerHTML).toBe('Politics')
     expect(newButtons[0] && newButtons[1]).toBeDefined();
     expect(newCorrectAnswer[0]).toHaveValue('True');
   });

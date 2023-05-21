@@ -99,7 +99,7 @@ class Game extends Component {
         button.style.backgroundColor = '';
         button.style.color = '';
       } else if (button.className === 'correctAnswer') {
-        button.style.backgroundColor = '#548745';
+        button.style.backgroundColor = 'rgb(84, 135, 69)';
         button.style.color = '#fff';
         button.disabled = 'true';
       } else if (button.className === 'wrongAnswer') {
